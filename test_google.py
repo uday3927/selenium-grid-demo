@@ -1,7 +1,7 @@
+import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import time
 
 def test_google_search():
     # Setup Remote WebDriver using Selenium Grid
@@ -21,15 +21,10 @@ def test_google_search():
         search_box.send_keys(Keys.RETURN)
         
         # Wait for results
-        time.sleep(2)
+        driver.implicitly_wait(10)
         
         # Assert search results page is loaded
-        assert "Testkube Selenium Grid" in driver.title
+        assert "Testkube Selenium Grid" in driver.title, "Search results page not loaded correctly"
         
-        print("Google search test completed successfully!")
-    
     finally:
         driver.quit()
-
-if __name__ == "__main__":
-    test_google_search()
