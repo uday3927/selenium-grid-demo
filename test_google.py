@@ -4,7 +4,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 def test_google_search():
     # Point to the Selenium Grid Hub
     driver = webdriver.Remote(
-        command_executor='http://selenium-grid-hub.selenium:4444/wd/hub',
+        command_executor='http://10.105.167.44:4444/wd/hub',
         options=webdriver.ChromeOptions()
     )
     
