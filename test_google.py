@@ -1,13 +1,16 @@
+import os
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 def test_google_search():
-    # Setup Remote WebDriver using Selenium Grid
+    # Get Hub URL from environment variable
+    hub_url = os.getenv('SELENIUM_HUB_URL', 'http://10.105.167.44:4444/wd/hub')  # Falls back to your current URL
+    
     options = webdriver.ChromeOptions()
     driver = webdriver.Remote(
-        command_executor='http://10.105.167.44:4444/wd/hub',
+        command_executor=hub_url,  # Now uses the environment variable
         options=options
     )
     
