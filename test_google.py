@@ -3,14 +3,16 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def test_google_search():
     # Get Hub URL from environment variable
-    hub_url = os.getenv('SELENIUM_HUB_URL', 'http://10.105.167.44:4444/wd/hub')  # Falls back to your current URL
+    hub_url = os.getenv('SELENIUM_HUB_URL', 'http://10.105.167.44:4444/wd/hub')
     
     options = webdriver.ChromeOptions()
     driver = webdriver.Remote(
-        command_executor=hub_url,  # Now uses the environment variable
+        command_executor=hub_url,
         options=options
     )
     
@@ -23,11 +25,15 @@ def test_google_search():
         search_box.send_keys("Testkube Selenium Grid")
         search_box.send_keys(Keys.RETURN)
         
-        # Wait for results
-        driver.implicitly_wait(10)
+        # Explicit wait for title update
+        WebDriverWait(driver, 10).until(
+            EC.title_contains("Testkube Selenium Grid")
+        )
         
-        # Assert search results page is loaded
-        assert "Testkube Selenium Grid" in driver.title, "Search results page not loaded correctly"
-        
+        # Assertion with descriptive error
+        assert "Testkube Selenium Grid" in driver.title, \
+            f"Expected 'Testkube Selenium Grid' in title, got '{driver.title}'"
+            
     finally:
+        # Critical cleanup - always executes
         driver.quit()
