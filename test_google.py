@@ -8,10 +8,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 def test_google_search():
-    # Use the EXACT service name from your cluster
-    hub_url = os.getenv('SELENIUM_HUB_URL', 'http://selenium-grid-selenium-hub.selenium:4444/wd/hub')
-    print(f"Connecting to: {hub_url}")  # Debugging
-    
+    # Verify Grid connection
+     hub_url = os.getenv('SELENIUM_HUB_URL', 'http://selenium-hub.selenium:4444/wd/hub')  # Use service DNS
+     print(f"\n=== Connecting to Selenium Hub at: {hub_url} ===")
+     
     options = webdriver.ChromeOptions()
     options.add_argument("--headless=new")  # Recommended for containerized tests
     driver = webdriver.Remote(
