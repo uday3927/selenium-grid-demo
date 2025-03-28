@@ -12,9 +12,9 @@ def test_google_search():
      hub_url = os.getenv('SELENIUM_HUB_URL', 'http://selenium-hub.selenium:4444/wd/hub')  # Use service DNS
      print(f"\n=== Connecting to Selenium Hub at: {hub_url} ===")
      
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless=new")  # Recommended for containerized tests
-    driver = webdriver.Remote(
+     options = webdriver.ChromeOptions()
+     options.add_argument("--headless=new")  # Recommended for containerized tests
+     driver = webdriver.Remote(
         command_executor=hub_url,
         options=options
     )
